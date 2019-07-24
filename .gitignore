@@ -102,3 +102,20 @@ venv.bak/
 
 # mypy
 .mypy_cache/
+
+# uranium
+.Python
+.uranium
+bin
+include
+lib
+*.egg-info
+dist/
+docs/_build
+.cache
+.coverage
+__pycache__
+*.pyc
+.DS_Store
+pip-selfcheck.json
+.pytest_cache/
