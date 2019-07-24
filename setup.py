@@ -6,7 +6,14 @@ base = os.path.dirname(os.path.abspath(__file__))
 
 README_PATH = os.path.join(base, "README.rst")
 
-install_requires = []
+install_requires = [
+    'aiohttp>=3.5.0',
+    'click>=6.6',
+    'devtools>=0.5',
+    'Pygments>=2.2.0',
+    'watchgod>=0.2',
+    'Sanic',
+]
 
 tests_require = []
 
