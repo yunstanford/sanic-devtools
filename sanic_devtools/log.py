@@ -12,11 +12,11 @@ from devtools.ansi import isatty, sformat
 from pygments.formatters import Terminal256Formatter
 from pygments.lexers import Python3TracebackLexer
 
-rs_dft_logger = logging.getLogger('adev.server.dft')
-rs_aux_logger = logging.getLogger('adev.server.aux')
+rs_dft_logger = logging.getLogger('sdev.server.dft')
+rs_aux_logger = logging.getLogger('sdev.server.aux')
 
-tools_logger = logging.getLogger('adev.tools')
-main_logger = logging.getLogger('adev.main')
+tools_logger = logging.getLogger('sdev.tools')
+main_logger = logging.getLogger('sdev.main')
 
 LOG_FORMATS = {
     logging.DEBUG: sformat.dim,
@@ -54,7 +54,7 @@ class DefaultFormatter(logging.Formatter):
 
 class AccessFormatter(logging.Formatter):
     """
-    Used to log aiohttp_access and aiohttp_server
+    Used to log sanic_access and sanic_server
     """
     def __init__(self, fmt=None, datefmt=None, style='%'):
         super().__init__(fmt, datefmt, style)
@@ -105,36 +105,36 @@ def log_config(verbose: bool) -> dict:
             'default': {
                 'format': '[%(asctime)s] %(message)s',
                 'datefmt': '%H:%M:%S',
-                'class': 'aiohttp_devtools.logs.DefaultFormatter',
+                'class': 'sanic_devtools.logs.DefaultFormatter',
             },
             'no_ts': {
                 'format': '%(message)s',
-                'class': 'aiohttp_devtools.logs.DefaultFormatter',
+                'class': 'sanic_devtools.logs.DefaultFormatter',
             },
-            'aiohttp': {
+            'sanic': {
                 'format': '%(message)s',
-                'class': 'aiohttp_devtools.logs.AccessFormatter',
+                'class': 'sanic_devtools.logs.AccessFormatter',
             },
         },
         'handlers': {
             'default': {
                 'level': log_level,
-                'class': 'aiohttp_devtools.logs.HighlightStreamHandler',
+                'class': 'sanic_devtools.logs.HighlightStreamHandler',
                 'formatter': 'default'
             },
             'no_ts': {
                 'level': log_level,
-                'class': 'aiohttp_devtools.logs.HighlightStreamHandler',
+                'class': 'sanic_devtools.logs.HighlightStreamHandler',
                 'formatter': 'no_ts'
             },
-            'aiohttp_access': {
+            'sanic_access': {
                 'level': log_level,
-                'class': 'aiohttp_devtools.logs.HighlightStreamHandler',
-                'formatter': 'aiohttp'
+                'class': 'sanic_devtools.logs.HighlightStreamHandler',
+                'formatter': 'sanic'
             },
-            'aiohttp_server': {
-                'class': 'aiohttp_devtools.logs.HighlightStreamHandler',
-                'formatter': 'aiohttp'
+            'sanic_server': {
+                'class': 'sanic_devtools.logs.HighlightStreamHandler',
+                'formatter': 'sanic'
             },
         },
         'loggers': {
@@ -154,13 +154,13 @@ def log_config(verbose: bool) -> dict:
                 'handlers': ['no_ts'],
                 'level': log_level,
             },
-            'aiohttp.access': {
-                'handlers': ['aiohttp_access'],
+            'sanic.access': {
+                'handlers': ['sanic_access'],
                 'level': log_level,
                 'propagate': False,
             },
-            'aiohttp.server': {
-                'handlers': ['aiohttp_server'],
+            'sanic.server': {
+                'handlers': ['sanic_server'],
                 'level': log_level,
             },
         },
