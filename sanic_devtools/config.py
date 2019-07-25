@@ -27,17 +27,15 @@ INFER_HOST = '<inference>'
 
 class Config:
     def __init__(self, *,
-                 app_path: str = '.',
-                 root_path: str = None,
-                 verbose: bool = False,
-                 static_path: str = None,
-                 python_path: str = None,
-                 static_url: str = '/static/',
-                 livereload: bool = True,
-                 app_factory_name: str = None,
-                 host: str = INFER_HOST,
-                 main_port: int = 8000,
-                 aux_port: int = None):
+        app_path: str = '.',
+        root_path: str = None,
+        verbose: bool = False,
+        python_path: str = None,
+        app_factory_name: str = None,
+        host: str = INFER_HOST,
+        main_port: int = 8000,
+        aux_port: int = None,
+        protocol: str = None):
         if root_path:
             self.root_path = Path(root_path).resolve()
             logger.debug('Root path specified: %s', self.root_path)
@@ -56,19 +54,13 @@ class Config:
         self.py_file = self._resolve_path(str(self.app_path), 'is_file', 'app-path')
         self.python_path = self._resolve_path(python_path, 'is_dir', 'python-path') or self.root_path
 
-        self.static_path = self._resolve_path(static_path, 'is_dir', 'static-path')
-        self.static_url = static_url
-        self.livereload = livereload
         self.app_factory_name = app_factory_name
         self.infer_host = host == INFER_HOST
         self.host = 'localhost' if self.infer_host else host
         self.main_port = main_port
         self.aux_port = aux_port or (main_port + 1)
+        self.protocol = protocol or "http"
         logger.debug('config loaded:\n%s', self)
-
-    @property
-    def static_path_str(self):
-        return self.static_path and str(self.static_path)
 
     def _find_app_path(self, app_path: str) -> Path:
         # for backwards compatibility try this first
@@ -177,6 +169,5 @@ class Config:
         return app
 
     def __str__(self):
-        fields = ('py_file', 'static_path', 'static_url', 'livereload',
-                  'app_factory_name', 'host', 'main_port', 'aux_port')
+        fields = ('py_file', 'app_factory_name', 'host', 'main_port', 'aux_port')
         return 'Config:\n' + '\n'.join('  {0}: {1!r}'.format(f, getattr(self, f)) for f in fields)

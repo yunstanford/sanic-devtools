@@ -59,33 +59,10 @@ class AppTask(WatchTask):
                     logger.debug('%d changes, restarting server', len(changes))
                     self._stop_dev_server()
                     self._start_dev_server()
-                    await self._src_reload_when_live(live_checks)
-                elif len(changes) > 1 or any(f.endswith(self.template_files) for _, f in changes):
-                    # reload all pages
-                    await src_reload(self._app)
-                else:
-                    # a single (non template) file has changed, reload a single file.
-                    await src_reload(self._app, changes.pop()[1])
         except Exception as exc:
             logger.exception(exc)
             await self._session.close()
-            raise AiohttpDevException('error running dev server')
-
-    async def _src_reload_when_live(self, checks=20):
-        if self._app[WS]:
-            url = 'http://localhost:{.main_port}/?_checking_alive=1'.format(self._config)
-            logger.debug('checking app at "%s" is running before prompting reload...', url)
-            for i in range(checks):
-                await asyncio.sleep(0.1)
-                try:
-                    async with self._session.get(url):
-                        pass
-                except OSError as e:
-                    logger.debug('try %d | OSError %d app not running', i, e.errno)
-                else:
-                    logger.debug('try %d | app running, reloading...', i)
-                    await src_reload(self._app)
-                    return
+            raise SanicDevException('error running dev server')
 
     def _start_dev_server(self):
         act = 'Start' if self._reloads == 0 else 'Restart'
@@ -121,12 +98,3 @@ class AppTask(WatchTask):
         self.stopper.set()
         self._stop_dev_server()
         await asyncio.gather(super().close(), self._session.close())
-
-
-class LiveReloadTask(WatchTask):
-    async def _run(self):
-        async for changes in self._awatch:
-            if len(changes) > 1:
-                await src_reload(self._app)
-            else:
-                await src_reload(self._app, changes.pop()[1])
