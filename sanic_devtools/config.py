@@ -27,15 +27,17 @@ INFER_HOST = '<inference>'
 
 class Config:
     def __init__(self, *,
-        app_path: str = '.',
-        root_path: str = None,
-        verbose: bool = False,
-        python_path: str = None,
-        app_factory_name: str = None,
-        host: str = INFER_HOST,
-        main_port: int = 8000,
-        aux_port: int = None,
-        protocol: str = None):
+        app_path: str='.',
+        root_path: str=None,
+        verbose: bool=False,
+        python_path: str=None,
+        app_factory_name: str=None,
+        host: str=INFER_HOST,
+        main_port: int=8000,
+        aux_port: int=None,
+        protocol: str=None,
+        backlog: int=100,
+        access_log: bool=False):
         if root_path:
             self.root_path = Path(root_path).resolve()
             logger.debug('Root path specified: %s', self.root_path)
@@ -60,6 +62,8 @@ class Config:
         self.main_port = main_port
         self.aux_port = aux_port or (main_port + 1)
         self.protocol = protocol or "http"
+        self.backlog = backlog
+        self.access_log = access_log
         logger.debug('config loaded:\n%s', self)
 
     def _find_app_path(self, app_path: str) -> Path:

@@ -15,9 +15,15 @@ from .log import rs_aux_logger as aux_logger
 from .log import rs_dft_logger as dft_logger
 from .log import setup_logging
 from .config import Config
+from .runner import AppRunner
 
 
-HOST = '127.0.0.1'
+HOST = "127.0.0.1"
+PROTOCOLS = {
+    "http": HttpProtocol,
+    "websocket": WebSocketProtocol,
+    "ws": WebSocketProtocol,
+}
 
 
 async def check_port_open(port, loop, delay=1):
@@ -69,14 +75,18 @@ def serve_main_app(config: Config, tty_path: Optional[str]):
 
 async def start_main_app(config: Config, app_factory, loop):
     app = await config.load_app(app_factory)
-
     await check_port_open(config.main_port, loop)
-    
     # Create Sanic AppRunner
-
-    # start app in async way
-
-
+    runner = AppRunner(
+            app,
+            config.host,
+            config.port,
+            protocol=PROTOCOLS[config.protocol],
+            backlog=config.backlog,
+            access_log=config.access_log,
+        )
+    # start AppRunner
+    await runner.start()
     return runner
 
 
