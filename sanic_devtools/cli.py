@@ -42,7 +42,7 @@ access_log_help = 'Enables writing access logs'
 @click.argument('app-path', envvar='AIO_APP_PATH', type=_file_dir_existing, required=False)
 @click.option('-s', '--static', 'static_path', envvar='AIO_STATIC_PATH', type=_dir_existing, help=static_help)
 @click.option('--root', 'root_path', envvar='AIO_ROOT', type=_dir_existing, help=root_help)
-=@click.option('--host', default=INFER_HOST, help=host_help)
+@click.option('--host', default=INFER_HOST, help=host_help)
 @click.option('--app-factory', 'app_factory_name', envvar='AIO_APP_FACTORY', help=app_factory_help)
 @click.option('-p', '--port', 'main_port', envvar='AIO_PORT', type=click.INT, help=port_help)
 @click.option('--aux-port', envvar='AIO_AUX_PORT', type=click.INT, help=aux_port_help)
