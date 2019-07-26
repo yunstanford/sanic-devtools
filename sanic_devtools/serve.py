@@ -10,13 +10,6 @@ from sanic.app import Sanic
 from sanic.server import serve, HttpProtocol
 from sanic.websocket import WebSocketProtocol
 
-from aiohttp import WSMsgType, web
-from aiohttp.hdrs import LAST_MODIFIED
-from aiohttp.web import FileResponse, Response
-from aiohttp.web_exceptions import HTTPNotFound, HTTPNotModified
-from aiohttp.web_urldispatcher import StaticResource
-from yarl import URL
-
 from .exceptions import SanicDevException
 from .log import rs_aux_logger as aux_logger
 from .log import rs_dft_logger as dft_logger
@@ -74,28 +67,12 @@ def serve_main_app(config: Config, tty_path: Optional[str]):
                 loop.run_until_complete(runner.cleanup())
 
 
-async def trigger_events(events, loop):
-    """Trigger events (functions or async)
-    :param events: one or more sync or async functions to execute
-    :param loop: event loop
-    """
-    for event in events:
-        result = event(loop)
-        if isawaitable(result):
-            await result
-
-
-# TODO: Add Sanic Runner Wrapper
 async def start_main_app(config: Config, app_factory, loop):
     app = await config.load_app(app_factory)
 
     await check_port_open(config.main_port, loop)
     
-    # server settings
-    server_settings = app._helper(
-        host=config.host, port=config.main_port,
-        loop=loop, protocol=config.protocol,
-        backlog=config.backlog, run_async=True)
+    # Create Sanic AppRunner
 
     # start app in async way
 
