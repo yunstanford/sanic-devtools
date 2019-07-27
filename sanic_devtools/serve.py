@@ -70,7 +70,7 @@ def serve_main_app(config: Config, tty_path: Optional[str]):
             pass
         finally:
             with contextlib.suppress(asyncio.TimeoutError, KeyboardInterrupt):
-                loop.run_until_complete(runner.cleanup())
+                loop.run_until_complete(runner.close())
 
 
 async def start_main_app(config: Config, app_factory, loop):
@@ -80,10 +80,12 @@ async def start_main_app(config: Config, app_factory, loop):
     runner = AppRunner(
             app,
             config.host,
-            config.port,
+            config.main_port,
+            workers=config.workers,
             protocol=PROTOCOLS[config.protocol],
             backlog=config.backlog,
             access_log=config.access_log,
+            loop=loop,
         )
     # start AppRunner
     await runner.start()

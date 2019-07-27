@@ -5,16 +5,14 @@ from multiprocessing import set_start_method
 
 from .log import rs_dft_logger as logger
 from .config import Config
+from .runner import AppRunner
 from .serve import HOST, check_port_open, create_auxiliary_app
 from .watch import AppTask
 
 
 def run_app(app, port, loop):
-    runner = AppRunner(app)
-    loop.run_until_complete(runner.setup())
-
-    site = TCPSite(runner, HOST, port, shutdown_timeout=0.01)
-    loop.run_until_complete(site.start())
+    runner = AppRunner(app, HOST, port, loop=loop)
+    loop.run_until_complete(runner.start())
 
     try:
         loop.run_forever()
@@ -24,7 +22,7 @@ def run_app(app, port, loop):
         logger.info('shutting down server...')
         start = loop.time()
         with contextlib.suppress(asyncio.TimeoutError, KeyboardInterrupt):
-            loop.run_until_complete(runner.cleanup())
+            loop.run_until_complete(runner.close())
         logger.debug('shutdown took %0.2fs', loop.time() - start)
 
 
@@ -47,8 +45,15 @@ def runserver(**config_kwargs):
     aux_app = create_auxiliary_app()
 
     main_manager = AppTask(config, loop)
-    aux_app.register_listener(main_manager.start, 'after_server_start')
-    aux_app.register_listener(main_manager.close, 'before_server_stop')
+
+    async def start(app, loop):
+        await main_manager.start(app)
+
+    async def close(app, loop):
+        await main_manager.close(app)
+
+    aux_app.register_listener(start, 'after_server_start')
+    aux_app.register_listener(close, 'before_server_stop')
 
     url = 'http://{0.host}:{0.aux_port}'.format(config)
     logger.info('Starting aux server at %s ◆', url)

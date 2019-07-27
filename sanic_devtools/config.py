@@ -23,6 +23,7 @@ APP_FACTORY_NAMES = [
 ]
 
 INFER_HOST = '<inference>'
+DEFAULT_PORT = 8000
 
 
 class Config:
@@ -33,9 +34,10 @@ class Config:
         python_path: str=None,
         app_factory_name: str=None,
         host: str=INFER_HOST,
-        main_port: int=8000,
+        main_port: int=DEFAULT_PORT,
         aux_port: int=None,
         protocol: str=None,
+        workers: int=1,
         backlog: int=100,
         access_log: bool=False):
         if root_path:
@@ -62,6 +64,7 @@ class Config:
         self.main_port = main_port
         self.aux_port = aux_port or (main_port + 1)
         self.protocol = protocol or "http"
+        self.workers = workers
         self.backlog = backlog
         self.access_log = access_log
         logger.debug('config loaded:\n%s', self)

@@ -6,7 +6,7 @@ import click
 
 from .exceptions import SanicDevException
 from .log import main_logger, setup_logging
-from .config import INFER_HOST
+from .config import INFER_HOST, DEFAULT_PORT
 from .main import runserver as _runserver
 from .main import run_app
 from .version import VERSION
@@ -35,6 +35,7 @@ port_help = 'Port to serve app from, default 8000. env variable: AIO_PORT'
 aux_port_help = 'Port to serve auxiliary app (reload, etc.) on, default port + 1. env variable: AIO_AUX_PORT'
 protocol_help = 'app web protocol, HttpProtocol or WebSocketProtocol'
 backlog_help = 'a number of unaccepted connections that the system will allow before refusing new connections'
+workers_help = 'sanic workers that will be spawned'
 access_log_help = 'Enables writing access logs'
 
 # defaults are all None here so default settings are defined in one place: DEV_DICT validation
@@ -43,10 +44,11 @@ access_log_help = 'Enables writing access logs'
 @click.option('--root', 'root_path', envvar='AIO_ROOT', type=_dir_existing, help=root_help)
 @click.option('--host', default=INFER_HOST, help=host_help)
 @click.option('--app-factory', 'app_factory_name', envvar='AIO_APP_FACTORY', help=app_factory_help)
-@click.option('-p', '--port', 'main_port', envvar='AIO_PORT', type=click.INT, help=port_help)
-@click.option('--aux-port', envvar='AIO_AUX_PORT', type=click.INT, help=aux_port_help)
-@click.option('--protocol', envvar='PROTOCOL', default='http', help=protocol_help)
-@click.option('--backlog', envvar='BACKLOG', type=click.INT, help=backlog_help)
+@click.option('-p', '--port', 'main_port', default=DEFAULT_PORT, envvar='AIO_PORT', type=click.INT, help=port_help)
+@click.option('--aux-port', 'aux_port', envvar='AIO_AUX_PORT', type=click.INT, help=aux_port_help)
+@click.option('--protocol', 'protocol', envvar='PROTOCOL', default='http', help=protocol_help)
+@click.option('--backlog', 'backlog', envvar='BACKLOG', type=click.INT, help=backlog_help)
+@click.option('--workers', 'workers', envvar='WORKERS', type=click.INT, help=workers_help)
 @click.option('--access-log', is_flag=True, help=access_log_help)
 @click.option('-v', '--verbose', is_flag=True, help=verbose_help)
 def runserver(**config):
