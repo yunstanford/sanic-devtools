@@ -105,35 +105,35 @@ def log_config(verbose: bool) -> dict:
             'default': {
                 'format': '[%(asctime)s] %(message)s',
                 'datefmt': '%H:%M:%S',
-                'class': 'sanic_devtools.logs.DefaultFormatter',
+                'class': 'sanic_devtools.log.DefaultFormatter',
             },
             'no_ts': {
                 'format': '%(message)s',
-                'class': 'sanic_devtools.logs.DefaultFormatter',
+                'class': 'sanic_devtools.log.DefaultFormatter',
             },
             'sanic': {
                 'format': '%(message)s',
-                'class': 'sanic_devtools.logs.AccessFormatter',
+                'class': 'sanic_devtools.log.AccessFormatter',
             },
         },
         'handlers': {
             'default': {
                 'level': log_level,
-                'class': 'sanic_devtools.logs.HighlightStreamHandler',
+                'class': 'sanic_devtools.log.HighlightStreamHandler',
                 'formatter': 'default'
             },
             'no_ts': {
                 'level': log_level,
-                'class': 'sanic_devtools.logs.HighlightStreamHandler',
+                'class': 'sanic_devtools.log.HighlightStreamHandler',
                 'formatter': 'no_ts'
             },
             'sanic_access': {
                 'level': log_level,
-                'class': 'sanic_devtools.logs.HighlightStreamHandler',
+                'class': 'sanic_devtools.log.HighlightStreamHandler',
                 'formatter': 'sanic'
             },
             'sanic_server': {
-                'class': 'sanic_devtools.logs.HighlightStreamHandler',
+                'class': 'sanic_devtools.log.HighlightStreamHandler',
                 'formatter': 'sanic'
             },
         },

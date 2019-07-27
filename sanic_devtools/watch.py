@@ -10,7 +10,7 @@ from watchgod import awatch
 from .exceptions import SanicDevException
 from .log import rs_dft_logger as logger
 from .config import Config
-from .serve import WS, serve_main_app, src_reload
+from .serve import serve_main_app
 
 
 class WatchTask:

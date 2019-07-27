@@ -5,7 +5,7 @@ from pathlib import Path
 import click
 
 from .exceptions import SanicDevException
-from .logs import main_logger, setup_logging
+from .log import main_logger, setup_logging
 from .config import INFER_HOST
 from .main import runserver as _runserver
 from .main import run_app
@@ -40,7 +40,6 @@ access_log_help = 'Enables writing access logs'
 # defaults are all None here so default settings are defined in one place: DEV_DICT validation
 @cli.command()
 @click.argument('app-path', envvar='AIO_APP_PATH', type=_file_dir_existing, required=False)
-@click.option('-s', '--static', 'static_path', envvar='AIO_STATIC_PATH', type=_dir_existing, help=static_help)
 @click.option('--root', 'root_path', envvar='AIO_ROOT', type=_dir_existing, help=root_help)
 @click.option('--host', default=INFER_HOST, help=host_help)
 @click.option('--app-factory', 'app_factory_name', envvar='AIO_APP_FACTORY', help=app_factory_help)

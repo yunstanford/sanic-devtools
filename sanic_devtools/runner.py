@@ -1,5 +1,6 @@
 import asyncio
-
+from asyncio import Protocol
+from ssl import SSLContext
 from sanic.server import serve, HttpProtocol
 from typing import Any, Optional, Type, Union
 
@@ -80,14 +81,14 @@ class AppRunner:
             return
 
         # Trigger before_stop events
-       await self.trigger_events(self.before_stop_events)
+        await self.trigger_events(self.before_stop_events)
 
         # Stop Server
         self.server.close()
         await self.server.wait_closed()
 
         # Trigger after_stop events
-       await self.trigger_events(self.after_stop_events)
+        await self.trigger_events(self.after_stop_events)
 
         self.closed = True
         self.is_running = False

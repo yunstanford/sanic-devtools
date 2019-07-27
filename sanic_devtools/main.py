@@ -3,12 +3,10 @@ import contextlib
 import os
 from multiprocessing import set_start_method
 
-from aiohttp.web_runner import AppRunner, TCPSite
-
 from .log import rs_dft_logger as logger
 from .config import Config
 from .serve import HOST, check_port_open, create_auxiliary_app
-from .watch import AppTask, LiveReloadTask
+from .watch import AppTask
 
 
 def run_app(app, port, loop):
