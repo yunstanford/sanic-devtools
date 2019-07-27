@@ -12,7 +12,6 @@ install_requires = [
     'devtools>=0.5',
     'Pygments>=2.2.0',
     'watchgod>=0.2',
-    'Sanic',
 ]
 
 tests_require = []
