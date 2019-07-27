@@ -44,27 +44,13 @@ def runserver(**config_kwargs):
 
     loop.run_until_complete(check_port_open(config.main_port, loop))
 
-    aux_app = create_auxiliary_app(
-        static_path=config.static_path_str,
-        static_url=config.static_url,
-        livereload=config.livereload,
-    )
+    aux_app = create_auxiliary_app()
 
     main_manager = AppTask(config, loop)
-    aux_app.on_startup.append(main_manager.start)
-    aux_app.on_shutdown.append(main_manager.close)
-
-    if config.static_path:
-        static_manager = LiveReloadTask(config.static_path, loop)
-        logger.debug('starting livereload to watch %s', config.static_path_str)
-        aux_app.on_startup.append(static_manager.start)
-        aux_app.on_shutdown.append(static_manager.close)
+    aux_app.register_listener(main_manager.start, 'after_server_start')
+    aux_app.register_listener(main_manager.close, 'before_server_stop')
 
     url = 'http://{0.host}:{0.aux_port}'.format(config)
     logger.info('Starting aux server at %s ◆', url)
-
-    if config.static_path:
-        rel_path = config.static_path.relative_to(os.getcwd())
-        logger.info('serving static files from ./%s/ at %s%s', rel_path, url, config.static_url)
 
     return aux_app, config.aux_port, loop
