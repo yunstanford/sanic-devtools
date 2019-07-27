@@ -47,8 +47,8 @@ access_log_help = 'Enables writing access logs'
 @click.option('-p', '--port', 'main_port', default=DEFAULT_PORT, envvar='AIO_PORT', type=click.INT, help=port_help)
 @click.option('--aux-port', 'aux_port', envvar='AIO_AUX_PORT', type=click.INT, help=aux_port_help)
 @click.option('--protocol', 'protocol', envvar='PROTOCOL', default='http', help=protocol_help)
-@click.option('--backlog', 'backlog', envvar='BACKLOG', type=click.INT, help=backlog_help)
-@click.option('--workers', 'workers', envvar='WORKERS', type=click.INT, help=workers_help)
+@click.option('--backlog', 'backlog', envvar='BACKLOG', default=100, type=click.INT, help=backlog_help)
+@click.option('--workers', 'workers', envvar='WORKERS', default=1, type=click.INT, help=workers_help)
 @click.option('--access-log', is_flag=True, help=access_log_help)
 @click.option('-v', '--verbose', is_flag=True, help=verbose_help)
 def runserver(**config):
