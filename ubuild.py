@@ -10,7 +10,6 @@ def main(build):
 @task_requires("main")
 def test(build):
     build.packages.install("pytest")
-    build.packages.install("sanic")
     build.packages.install("coverage")
     build.packages.install("asynctest")
     build.executables.run([
