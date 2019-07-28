@@ -53,6 +53,19 @@ Installation
 Quick Start
 -----------
 
+.. code:: shell
+    
+    ⋊> ~ sdev --help
+
+    Usage: sdev [OPTIONS] COMMAND [ARGS]...
+
+    Options:
+      -V, --version  Show the version and exit.
+      --help         Show this message and exit.
+
+    Commands:
+      runserver  Run a development server for an Sanic app.
+
 
 Usage
 -----
@@ -63,9 +76,19 @@ The `sanic-devtools` provides several commands to help you develop Sanic Applica
 runserver
 ~~~~~~~~~
 
+Provides a simple local server for running your application while you're developing.
+
+.. code:: shell
+
+    adev runserver <app-path>
 
 new
 ~~~
+
+[TODO]
+
+
+Also feel free to add any tool/command that could help developing `Sanic` application smoothly, just create a PR or issue and let us know !
 
 
 Contributing
@@ -77,7 +100,7 @@ Run unit tests.
 
 .. code:: shell
     
-    tox
+    tox -e py36
 
 or 
 
