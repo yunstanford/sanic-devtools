@@ -12,6 +12,8 @@ def test(build):
     build.packages.install("pytest")
     build.packages.install("coverage")
     build.packages.install("asynctest")
+    build.packages.install("pytest-mock")
+    build.packages.install("pytest-sanic", version="==1.0.0")
     build.executables.run([
         "coverage", "run", "--append",
         "--source=sanic_devtools",
