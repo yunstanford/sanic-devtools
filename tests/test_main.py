@@ -67,8 +67,9 @@ async def test_aux_app(tmpworkdir, sanic_client):
 
 
 @pytest.mark.boxed
-async def test_serve_main_app(tmpworkdir, loop, mocker):
+async def test_serve_main_app(tmpworkdir, loop):
     mktree(tmpworkdir, SIMPLE_APP)
     config = Config(app_path='app.py')
     runner = await start_main_app(config, config.import_app_factory(), loop)
     assert runner.is_running == True
+    await runner.close()

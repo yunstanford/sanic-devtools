@@ -37,7 +37,7 @@ def runserver(**config_kwargs):
     try:
         set_start_method('spawn')
     except RuntimeError as e:
-        logger.warn(str(e))
+        logger.warning(str(e))
 
     config = Config(**config_kwargs)
     config.import_app_factory()
