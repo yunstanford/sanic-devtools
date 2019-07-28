@@ -165,10 +165,8 @@ class Config:
             else:
                 # loop argument missing, assume no arguments
                 app = app_factory()
-
             if asyncio.iscoroutine(app):
                 app = await app
-
             if not isinstance(app, Sanic):
                 raise SanicDevConfigError('app factory "{.app_factory_name}" returned "{.__class__.__name__}" not an '
                                       'Sanic Application'.format(self, app))
