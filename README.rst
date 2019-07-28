@@ -3,7 +3,7 @@ sanic-devtools
 
 Dev tools for Sanic.
 
-This tool is highly inspired by `aiohttp-devtools <https://github.com/aio-libs/aiohttp-devtools>`_, `aio-libs <https://github.com/aio-libs`_.
+This tool is highly inspired by `aiohttp-devtools <https://github.com/aio-libs/aiohttp-devtools>`_, `aio-libs <https://github.com/aio-libs>`_.
 
 
 Installation
