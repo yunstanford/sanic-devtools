@@ -9,6 +9,7 @@ from typing import Optional
 from sanic.app import Sanic
 from sanic.server import serve, HttpProtocol
 from sanic.websocket import WebSocketProtocol
+from sanic.response import json
 
 from .exceptions import SanicDevException
 from .log import rs_aux_logger as aux_logger
@@ -94,6 +95,9 @@ async def start_main_app(config: Config, app_factory, loop):
 
 def create_auxiliary_app():
     app = Sanic("SANIC_DEV_AUX_APP")
+    @app.route("/")
+    def aux_home(request):
+        return json({"status": "ok"})
     return app
 
 

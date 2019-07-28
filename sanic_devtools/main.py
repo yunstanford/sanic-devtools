@@ -34,7 +34,10 @@ def runserver(**config_kwargs):
     :return: tuple (auxiliary app, auxiliary app port, event loop)
     """
     # force a full reload in sub processes so they load an updated version of code, this must be called only once
-    set_start_method('spawn')
+    try:
+        set_start_method('spawn')
+    except RuntimeError as e:
+        logger.warn(str(e))
 
     config = Config(**config_kwargs)
     config.import_app_factory()
