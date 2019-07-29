@@ -82,14 +82,22 @@ application automatically while developing and having any code change.
 
 .. code:: shell
 
-    adev runserver <app-path>
+    sdev runserver <app-path>
 
 
 
 new
 ~~~
 
-[TODO]
+Creates a new sanic project with batteries included in seconds.
+
+.. code:: shell
+
+    sdev new --output-dir <project-output-path>
+
+
+By default, `sdev` uses `cookiecutter-sanic <https://github.com/harshanarayana/cookiecutter-sanic>`_ as default template under the hood.
+You may override it by passing `--template-src` option.
 
 
 Also feel free to add any tool/command that helps developing `Sanic` application smoothly, just create a PR/issue and let us know !
