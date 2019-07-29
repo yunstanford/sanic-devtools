@@ -85,7 +85,6 @@ application automatically while developing and having any code change.
     sdev runserver <app-path>
 
 
-
 For more details, try:
 
 .. code:: shell
