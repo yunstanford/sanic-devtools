@@ -86,6 +86,12 @@ application automatically while developing and having any code change.
 
 
 
+For more details, try:
+
+.. code:: shell
+
+    sdev runserver --help
+
 new
 ~~~
 
@@ -98,6 +104,12 @@ Creates a new sanic project with batteries included in seconds.
 
 By default, `sdev` uses `cookiecutter-sanic <https://github.com/harshanarayana/cookiecutter-sanic>`_ as default template under the hood.
 You may override it by passing `--template-src` option.
+
+For more details, try:
+
+.. code:: shell
+
+    sdev new --help
 
 
 Also feel free to add any tool/command that helps developing `Sanic` application smoothly, just create a PR/issue and let us know !
