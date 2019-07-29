@@ -7,7 +7,7 @@ sanic-devtools
     :stub-columns: 1
 
     * - Build
-      - | |travis| |coverage|
+      - | |travis| |codecov|
     * - Package
       - | |version| |wheel| |supported-versions| |supported-implementations|
 
@@ -15,9 +15,8 @@ sanic-devtools
     :alt: Travis-CI Build Status
     :target: https://travis-ci.org/yunstanford/sanic-devtools
 
-.. |coverage| image:: https://coveralls.io/repos/github/yunstanford/sanic-devtools/badge.svg?branch=master
-    :alt: coverage status
-    :target: https://coveralls.io/github/yunstanford/sanic-devtools?branch=master
+.. |codecov| image:: https://codecov.io/gh/yunstanford/sanic-devtools/branch/master/graph/badge.svg
+    :target: https://codecov.io/gh/yunstanford/sanic-devtools
 
 .. |version| image:: https://img.shields.io/pypi/v/sanic-devtools.svg
     :alt: PyPI Package latest release
