@@ -71,7 +71,7 @@ Quick Start
 Usage
 -----
 
-`sanic-devtools` provides several commands to help you develop Sanic Application easily.
+``sanic-devtools`` provides several commands to help you develop Sanic Application easily.
 
 
 runserver
@@ -85,9 +85,9 @@ application automatically while developing and having any code change.
     sdev runserver <app-path>
 
 
-`app-path` can be a path to either a directory containing a recognized default file (app.py or main.py) or to a specific file.
-The `--app-factory` option can be used to define which method is called from the app path file,
-if not supplied some default method names are tried (`app/app_factory/get_app/create_app`).
+``app-path`` can be a path to either a directory containing a recognized default file (app.py or main.py) or to a specific file.
+The ``--app-factory`` option can be used to define which method is called from the app path file,
+if not supplied some default method names are tried (``app/app_factory/get_app/create_app``).
 
 All runserver arguments can be set via environment variables.
 
@@ -108,8 +108,8 @@ Creates a new sanic project with batteries included in seconds.
     sdev new --output-dir <project-output-path>
 
 
-By default, `sdev` uses `cookiecutter-sanic <https://github.com/harshanarayana/cookiecutter-sanic>`_ as default template under the hood.
-You may override it by passing `--template-src` option.
+By default, ``sdev`` uses `cookiecutter-sanic <https://github.com/harshanarayana/cookiecutter-sanic>`_ as default template under the hood.
+You may override it by passing ``--template-src`` option.
 
 For more details, try:
 
@@ -118,13 +118,13 @@ For more details, try:
     sdev new --help
 
 
-Also feel free to add any tool/command that helps developing `Sanic` application smoothly, just create a PR/issue and let us know !
+Also feel free to add any tool/command that helps developing ``Sanic`` application smoothly, just create a PR/issue and let us know !
 
 
 Contributing
 ------------
 
-`sanic-devtools` accepts contributions on GitHub, in the form of issues or pull requests.
+``sanic-devtools`` accepts contributions on GitHub, in the form of issues or pull requests.
 
 Run unit tests.
 
