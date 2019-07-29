@@ -130,3 +130,10 @@ or
 .. code:: shell
     
     ./uranium test
+
+Test command locally.
+
+.. code:: shell
+
+    ./uranium
+    ./bin/sdev runserver ./example/app.py
