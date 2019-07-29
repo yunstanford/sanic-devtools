@@ -8,6 +8,7 @@ README_PATH = os.path.join(base, "README.rst")
 
 install_requires = [
     'aiohttp>=3.5.0',
+    'cookiecutter',
     'click>=6.6',
     'devtools>=0.5',
     'Pygments>=2.2.0',

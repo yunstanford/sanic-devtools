@@ -71,7 +71,7 @@ Quick Start
 Usage
 -----
 
-The `sanic-devtools` provides several commands to help you develop Sanic Application easily.
+`sanic-devtools` provides several commands to help you develop Sanic Application easily.
 
 
 runserver
@@ -84,13 +84,15 @@ application automatically while developing and having any code change.
 
     adev runserver <app-path>
 
+
+
 new
 ~~~
 
 [TODO]
 
 
-Also feel free to add any tool/command that could help developing `Sanic` application smoothly, just create a PR/ßissue and let us know !
+Also feel free to add any tool/command that helps developing `Sanic` application smoothly, just create a PR/issue and let us know !
 
 
 Contributing

@@ -1,6 +1,7 @@
 import sys
 import traceback
 from pathlib import Path
+from cookiecutter.main import cookiecutter
 
 import click
 
@@ -10,6 +11,9 @@ from .config import INFER_HOST, DEFAULT_PORT
 from .main import runserver as _runserver
 from .main import run_app
 from .version import VERSION
+
+
+DEFAULT_COOKIECUTTER_SRC = "https://github.com/harshanarayana/cookiecutter-sanic.git"
 
 
 _dir_existing = click.Path(exists=True, dir_okay=True, file_okay=False)
@@ -37,6 +41,9 @@ protocol_help = 'app web protocol, HttpProtocol or WebSocketProtocol'
 backlog_help = 'a number of unaccepted connections that the system will allow before refusing new connections'
 workers_help = 'sanic workers that will be spawned'
 access_log_help = 'Enables writing access logs'
+template_src_help = 'provide your own cookiecutter template src, otherwise the default one will be used'
+output_dir_help = 'where to output the generated sanic project dir into'
+
 
 # defaults are all None here so default settings are defined in one place: DEV_DICT validation
 @cli.command()
@@ -65,6 +72,28 @@ def runserver(**config):
     setup_logging(config['verbose'])
     try:
         run_app(*_runserver(**active_config))
+    except SanicDevException as e:
+        if config['verbose']:
+            tb = click.style(traceback.format_exc().strip('\n'), fg='white', dim=True)
+            main_logger.warning('SanicDevException traceback:\n%s', tb)
+        main_logger.error('Error: %s', e)
+        sys.exit(2)
+
+
+@cli.command()
+@click.option('--template-src', 'template_src', default=DEFAULT_COOKIECUTTER_SRC, envvar='SANIC_TEMPLATE_SRC', help=template_src_help)
+@click.option('--output-dir', 'output_dir', default='.', envvar='SANIC_APP_OUTPUT_DIR', help=output_dir_help)
+@click.option('-v', '--verbose', is_flag=True, help=verbose_help)
+def new(**config):
+    """
+    Creates a new sanic project with batteries included.
+
+
+    """
+    active_config = {k: v for k, v in config.items() if v is not None}
+    setup_logging(config['verbose'])
+    try:
+        cookiecutter(active_config["template_src"], output_dir=active_config["output_dir"])
     except SanicDevException as e:
         if config['verbose']:
             tb = click.style(traceback.format_exc().strip('\n'), fg='white', dim=True)
