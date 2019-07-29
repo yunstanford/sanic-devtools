@@ -65,6 +65,7 @@ Quick Start
       --help         Show this message and exit.
 
     Commands:
+      new        Creates a new sanic project with batteries included.
       runserver  Run a development server for an Sanic app.
 
 
@@ -83,6 +84,13 @@ application automatically while developing and having any code change.
 .. code:: shell
 
     sdev runserver <app-path>
+
+
+`app-path` can be a path to either a directory containing a recognized default file (app.py or main.py) or to a specific file.
+The `--app-factory` option can be used to define which method is called from the app path file,
+if not supplied some default method names are tried (`app/app_factory/get_app/create_app`).
+
+All runserver arguments can be set via environment variables.
 
 
 For more details, try:
