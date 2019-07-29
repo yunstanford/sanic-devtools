@@ -12,7 +12,7 @@ async def test_check_port_open(unused_port, tmpworkdir, loop):
         config = Config(app_path='app.py')
         runner = await start_main_app(config, config.import_app_factory(), loop)
         assert runner.is_running == True
-        with pytest.raises(OSError):
+        with pytest.raises(Exception):
             await check_port_open(runner.port, loop, 0.01)
     finally:
         await runner.close()
