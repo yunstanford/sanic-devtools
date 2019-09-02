@@ -19,7 +19,7 @@ install_requires = [
 tests_require = []
 
 setup(
-    name='pytest-sanic',
+    name='sanic-devtools',
     version='0.1.0',
     description='dev tools for Sanic',
     long_description=open(README_PATH).read(),
